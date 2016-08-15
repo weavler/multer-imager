@@ -11,15 +11,10 @@ apt-get install build-essential libgraphicsmagick++1-dev libarchive-dev
 ```
 
 # Install
-```
-npm install multer-imager --save
-```
-
-# Tests
-Tested with [s3rver](https://github.com/jamhall/s3rver) instead of your actual s3 credentials.  Doesn't require a real account or changing of hosts files.  Includes integration tests ensuring that it should work with express + multer.
+>Not available in npm registry
 
 ```
-npm test
+npm install git+https://github.com/acashjos/multer-imager.git --save
 ```
 
 # Usage
