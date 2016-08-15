@@ -12,14 +12,15 @@ describe('multer-imager', function() {
       accessKeyId: 'accessKeyId',
       secretAccessKey: 'secretAccessKey',
       region: 'region',
-      gm: {
-        format: 'png',
-        scale: {
-          width: 200,
-          height: 200,
-          type: 'contain'
-        }
+      maxDimension:200,
+    /*gm: {
+      format: 'png',
+      scale: {
+        width: 200,
+        height: 200,
+        type: 'contain'
       }
+    },*/
     });
   });
   it('stores the options within each instance', function() {
@@ -29,14 +30,15 @@ describe('multer-imager', function() {
       accessKeyId: 'accessKeyId',
       secretAccessKey: 'secretAccessKey',
       region: 'region',
-      gm: {
-        format: 'png',
-        scale: {
-          width: 200,
-          height: 200,
-          type: 'contain'
-        }
+      maxDimension:200,
+    /*gm: {
+      format: 'png',
+      scale: {
+        width: 200,
+        height: 200,
+        type: 'contain'
       }
+    },*/
     });
     var multer2 = multerS3({
       bucket: 'bucket2',
@@ -44,14 +46,15 @@ describe('multer-imager', function() {
       accessKeyId: 'accessKeyId',
       secretAccessKey: 'secretAccessKey',
       region: 'region',
-      gm: {
-        format: 'png',
-        scale: {
-          width: 200,
-          height: 200,
-          type: 'contain'
-        }
+      maxDimension:200,
+    /*gm: {
+      format: 'png',
+      scale: {
+        width: 200,
+        height: 200,
+        type: 'contain'
       }
+    },*/
     });
     multer.should.have.property('options');
     multer.options.bucket.should.equal('bucket');
@@ -64,14 +67,15 @@ describe('multer-imager', function() {
       accessKeyId: 'accessKeyId',
       secretAccessKey: 'secretAccessKey',
       region: 'region',
-      gm: {
-        format: 'png',
-        scale: {
-          width: 200,
-          height: 200,
-          type: 'contain'
-        }
+      maxDimension:200,
+    /*gm: {
+      format: 'png',
+      scale: {
+        width: 200,
+        height: 200,
+        type: 'contain'
       }
+    },*/
     });
     upload._handleFile.should.be.a('function');
   });
@@ -82,14 +86,15 @@ describe('multer-imager', function() {
       accessKeyId: 'accessKeyId',
       secretAccessKey: 'secretAccessKey',
       region: 'region',
-      gm: {
-        format: 'png',
-        scale: {
-          width: 200,
-          height: 200,
-          type: 'contain'
-        }
+      maxDimension:200,
+    /*gm: {
+      format: 'png',
+      scale: {
+        width: 200,
+        height: 200,
+        type: 'contain'
       }
+    },*/
     });
     upload._removeFile.should.be.a('function');
   });

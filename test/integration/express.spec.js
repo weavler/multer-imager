@@ -15,14 +15,15 @@ var upload = multer({
     accessKeyId: 'aws-key-id',
     secretAccessKey: 'aws-key',
     region: 'us-east-1',
-    gm: {
+    maxDimension:200,
+    /*gm: {
       format: 'png',
       scale: {
         width: 200,
         height: 200,
         type: 'contain'
       }
-    },
+    },*/
     s3ForcePathStyle: true,
     endpoint: new AWS.Endpoint('http://localhost:4568')
   })
@@ -35,14 +36,15 @@ var upload2 = multer({
     accessKeyId: 'aws-key-id',
     secretAccessKey: 'aws-key',
     region: 'us-east-1',
-    gm: {
+    maxDimension:200,
+    /*gm: {
       format: 'png',
       scale: {
         width: 200,
         height: 200,
         type: 'contain'
       }
-    },
+    },*/
     s3ForcePathStyle: true,
     filename: function(req, file, cb) {
       cb(null, 'fileNameOne');
