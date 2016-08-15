@@ -19,9 +19,9 @@ function S3Storage(opts) {
   if (!opts.dirname) {
     throw new Error('dirname is required');
   }
-  if (!opts.gm) {
+/*  if (!opts.gm) {
     throw new Error('gm is required');
-  }
+  }*/
   this.options = opts;
   this.options.filename = (opts.filename || getFilename);
   this.s3fs = new S3FS(opts.bucket, opts);
@@ -40,20 +40,29 @@ S3Storage.prototype._handleFile = function(req, file, cb) {
       return cb(err);
     }
     var filePath = self.options.dirname + '/' + filename;
-    var outStream = self.s3fs.createWriteStream(filePath);
-    console.log("Starting gm".red)
-    gm(file.stream)
-    .resize(self.options.maxDimension,self.options.maxDimension)
-    .stream()
-    .pipe(outStream);
+    var outStream = self.s3fs.createWriteStream(filePath);    
     outStream.on('error', cb);
     outStream.on('finish', function() {
       cb(null, {
         size: outStream.bytesWritten,
         key: filePath,
-        location: 'https://' + self.options.bucket + '.s3.amazonaws.com/' + filePath
+        location: (self.options.s3Domain||'https://' + self.options.bucket+'.s3.amazonaws.com' )+'/'+ filePath
       });
     });
+
+
+    gm(file.stream,file.originalname).size(
+      {bufferStream: true},
+      function(err, size) { //donot use arrow function as it uses global context as `this`
+        if(err) return cb(err)
+        if (size && (size.width > self.options.maxDimension || size.height > self.options.maxDimension))
+          this.resize(self.options.maxDimension,self.options.maxDimension)
+        this
+        .stream()
+        .pipe(outStream);
+    })
+    
+
   });
 };
 
@@ -62,6 +71,5 @@ S3Storage.prototype._removeFile = function(req, file, cb) {
 };
 
 module.exports = function(opts) {
-    console.log("calling constructor".cyan)
   return new S3Storage(opts);
 };
