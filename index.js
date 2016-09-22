@@ -39,8 +39,9 @@ S3Storage.prototype._handleFile = function(req, file, cb) {
     if (err) {
       return cb(err);
     }
+    console.log(file)
     var filePath = self.options.dirname + '/' + filename;
-    var outStream = self.s3fs.createWriteStream(filePath);    
+    var outStream = self.s3fs.createWriteStream(filePath,{"ContentType":file.mimetype});    
     outStream.on('error', cb);
     outStream.on('finish', function() {
       cb(null, {
